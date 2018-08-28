@@ -12,6 +12,6 @@ router.register(r'post', views.PostViewSet)
 urlpatterns = [
     url(r'^$', HomeView.as_view()),
     url(r'^admin/', admin.site.urls),
-    url(r'^barang/', include(router.urls)),
-    url(r'^barang-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    # url(r'^barang/', include(router.urls)),
+    # url(r'^barang-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

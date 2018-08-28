@@ -13,6 +13,13 @@ class TableOneAdmin(admin.ModelAdmin):
         return qs
     # pass
 
+    def get_model_perms(self, request):
+        username = request.user.username
+        # ispub = 'public'
+        if username == 'public':
+            return {}
+        return super(TableOneAdmin, self).get_model_perms(request)
+
 
 # @admin.register(TableTwo)
 class TableTwoAdmin(admin.ModelAdmin):
@@ -23,6 +30,13 @@ class TableTwoAdmin(admin.ModelAdmin):
         qs = super(TableTwoAdmin, self).get_queryset(request)
         return qs
     # pass
+
+    def get_model_perms(self, request):
+        username = request.user.username
+        # ispub = 'public'
+        if username == 'public':
+            return {}
+        return super(TableTwoAdmin, self).get_model_perms(request)
 
 
 admin.site.register(TableOne, TableOneAdmin)

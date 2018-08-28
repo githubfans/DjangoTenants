@@ -21,7 +21,7 @@ sys.path.insert(0, TENANT_APPS_DIR)
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'tenant_tutorial12',
+        'NAME': 'tenant_tutorial16',
         'USER': 'aji',
         'PASSWORD': 'aji1234567',
         'HOST': 'localhost',
@@ -107,6 +107,7 @@ MIDDLEWARE = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django_currentuser.middleware.ThreadLocalUserMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
@@ -159,24 +160,27 @@ SHARED_APPS = (
 
 TENANT_APPS = (
     'rest_framework',
-    'barang',
     'tenant_only',
-    # 'django.contrib.contenttypes',
-    # 'django.contrib.auth',
-    # 'django.contrib.admin',
-    # 'django.contrib.sessions',
-    # 'django.contrib.messages',
+    'django.contrib.contenttypes',
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'barang',
 )
+
+# INSTALLED_APPS = ('customers',)
 
 # INSTALLED_APPS = list(set(TENANT_APPS + SHARED_APPS))
 
-INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 TENANT_MODEL = "customers.Client"  # app.Model
 
 TENANT_DOMAIN_MODEL = "customers.Domain"  # app.Model
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 

@@ -44,13 +44,21 @@ class PostAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(PostAdmin, self).get_queryset(request)
-        return qs.filter(created_by=request.user)
+        if request.user.username is not 'public':
+            return qs.filter(created_by=request.user)
 
     # def has_change_permission(self, request, obj=None):
     #     if not obj:
     #         # the changelist itself
     #         return True
     #     return obj.user == request.user
+
+    def get_model_perms(self, request):
+        username = request.user.username
+        # ispub = 'public'
+        if username == 'public':
+            return {}
+        return super(PostAdmin, self).get_model_perms(request)
 
 
 admin.site.register(Post, PostAdmin)
