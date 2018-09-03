@@ -150,6 +150,8 @@ SHARED_APPS = (
 
     'rest_framework',
 
+    'django_admin_listfilter_dropdown',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -169,7 +171,7 @@ TENANT_APPS = (
     'barang',
 )
 
-# INSTALLED_APPS = ('customers',)
+# INSTALLED_APPS = ('django_admin_listfilter_dropdown',)
 
 # INSTALLED_APPS = list(set(TENANT_APPS + SHARED_APPS))
 

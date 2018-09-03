@@ -3,6 +3,8 @@ from django.contrib import admin
 from .models import Post
 import datetime
 
+# from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
+
 
 # class PostCategoryAdmin(admin.ModelAdmin):
 
@@ -20,13 +22,38 @@ import datetime
 #             stock.save()
 
 
+def set_kategori(modeladmin, request, queryset):
+    # do something with the queryset
+    for post in queryset:
+        post.set_kategori = True
+        post.save()
+
+
+def unset_kategori(modeladmin, request, queryset):
+    # do something with the queryset
+    for post in queryset:
+        post.set_kategori = False
+        post.save()
+
+
+set_kategori.short_description = 'Set sebagai kategori'
+unset_kategori.short_description = 'Set sebagai item'
+
+
 class PostAdmin(admin.ModelAdmin):
 
     # list_display = ('nama_barang', 'kode_barang', 'kategori', 'created_by', 'updated_at')
-    list_display = ('nama_barang', 'kode_barang', 'created_by', 'updated_at')
+    list_display = ('set_kategori', 'nama_barang', 'kode_barang', 'created_by', 'updated_at', )
+    # list_filter = (
+    #     # for ordinary fields
+    #     ('nama_barang', DropdownFilter),
+    #     # for related fields
+    #     # ('nama_barang', RelatedDropdownFilter),
+    # )
     # search_fields = ['kategori__nama_kategori', 'kategori__deskripsi_kategori', 'nama_barang']
     search_fields = ['nama_barang', 'kode_barang']
     # actions = notne
+    actions = [set_kategori, unset_kategori, ]
 
     def save_model(self, request, obj, form, change):
         if form.is_valid():
@@ -59,6 +86,16 @@ class PostAdmin(admin.ModelAdmin):
         if username == 'public':
             return {}
         return super(PostAdmin, self).get_model_perms(request)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        '''
+
+        https://books.agiliq.com/projects/django-admin-cookbook/en/latest/filter_fk_dropdown.html
+
+        '''
+        if db_field.name == "kategori":
+            kwargs["queryset"] = Post.objects.filter(set_kategori=True)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 admin.site.register(Post, PostAdmin)

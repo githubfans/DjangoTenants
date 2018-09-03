@@ -25,6 +25,7 @@ class Post(models.Model):
     kategori = models.ForeignKey('self', on_delete=models.CASCADE, null=True, default='0')
     nama_barang = models.CharField(max_length=100)
     deskripsi = models.CharField(max_length=250, null=True)
+    set_kategori = models.BooleanField(default=False)
     updated_at = models.DateTimeField(null=True, editable=True, auto_now_add=True)
     created_by = models.ForeignKey(User, null=True, editable=True, default=0, on_delete=models.CASCADE)
 
