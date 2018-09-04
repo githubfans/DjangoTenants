@@ -27,7 +27,7 @@ class Post(models.Model):
     deskripsi = models.CharField(max_length=250, null=True)
     set_kategori = models.BooleanField(default=False)
     updated_at = models.DateTimeField(null=True, editable=True, auto_now_add=True)
-    created_by = models.ForeignKey(User, null=True, editable=True, default=0, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, null=True, editable=False, default=0, on_delete=models.CASCADE)
 
     auto_create_schema = True
 

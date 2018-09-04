@@ -43,7 +43,7 @@ unset_kategori.short_description = 'Set sebagai item'
 class PostAdmin(admin.ModelAdmin):
 
     # list_display = ('nama_barang', 'kode_barang', 'kategori', 'created_by', 'updated_at')
-    list_display = ('set_kategori', 'nama_barang', 'kode_barang', 'created_by', 'updated_at', )
+    list_display = ('nama_barang', 'kode_barang', 'created_by', 'updated_at', 'set_kategori', )
     # list_filter = (
     #     # for ordinary fields
     #     ('nama_barang', DropdownFilter),
