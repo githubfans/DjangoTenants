@@ -1,6 +1,6 @@
 certifi==2018.8.13
 chardet==3.0.4
-Django==2.0.8
+Django==2.2.24
 django-admin-list-filter-dropdown==1.0.1
 django-currentuser==0.2.3
 django-full-url==0.1
